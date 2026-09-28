@@ -6,6 +6,9 @@
  * Otherwise a unique URL is created which inlined the current user provided command.
  */
 const RawLink = {
+    // Path prefix the site is served under. Must match the Parcel public-url
+    // (and the path your reverse proxy mounts the site at).
+    hostPath: "/revshells",
     generate: (rsg) => {
         const commandSelector = rsg.uiElements[rsg.commandType].command;
         const currentCommandElement = document.querySelector(commandSelector);
@@ -33,12 +36,12 @@ const RawLink = {
         queryParams.set('shell', rsg.getShell());
         queryParams.set('encoding', rsg.getShell());
 
-        return `/${encodeURIComponent(name)}?${queryParams}`
+        return `${RawLink.hostPath}/${encodeURIComponent(name)}?${queryParams}`
     },
 
     withCustomValue: (value) => {
         const queryParams = new URLSearchParams();
         queryParams.set('value', value)
-        return `/raw?${queryParams}`
+        return `${RawLink.hostPath}/raw?${queryParams}`
     }
 }

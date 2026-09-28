@@ -1,7 +1,8 @@
 {
   "source": "index.html",
   "scripts": {
-    "build": "rm -rf ./dist && ./node_modules/.bin/parcel build"
+    "build": "rm -rf ./dist && ./node_modules/.bin/parcel build --public-url /revshells/ --dist-dir ./dist/revshells && printf '<!doctype html><meta http-equiv=refresh content=\"0; url=/revshells/\">' > ./dist/index.html",
+    "serve": "python3 -m http.server 8080 --directory ./dist"
   },
   "targets": {
     "default": {
